@@ -7,7 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-
+/**
+ * Custom implementation of Spring Security's UserDetails interface.
+ * This class wraps a User entity and provides user information
+ * required by Spring Security for authentication and authorization.
+ */
 public class CustomerUserDetails implements UserDetails {
 
     private final User user;

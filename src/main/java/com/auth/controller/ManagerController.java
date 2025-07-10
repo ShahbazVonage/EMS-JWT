@@ -1,15 +1,16 @@
 package com.auth.controller;
 
+import com.auth.config.CustomerUserDetails;
+import com.auth.dto.UserResponseDto;
 import com.auth.entity.User;
 import com.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -19,8 +20,16 @@ public class ManagerController {
     private final UserService userService;
 
     @GetMapping("/team/{managerId}")
-    public ResponseEntity<List<User>> getTeam(@PathVariable Long managerId){
+    public ResponseEntity<List<UserResponseDto>> getTeam(@PathVariable Long managerId){
         List<User> team = userService.getTeamByManager(managerId);
-        return ResponseEntity.ok(team);
+        List<UserResponseDto> teamDto = team.stream()
+                .map(userService :: convertToDto).toList();
+        return ResponseEntity.ok(teamDto);
+    }
+
+    @DeleteMapping("/deactivate/{userId}")
+    public ResponseEntity<String> deactivateTeamMember(@PathVariable Long userId , @AuthenticationPrincipal CustomerUserDetails manager) throws AccessDeniedException {
+        userService.deactivateUser(userId , manager.getEmail());
+        return ResponseEntity.ok("Team Member deactivated Successfully");
     }
 }

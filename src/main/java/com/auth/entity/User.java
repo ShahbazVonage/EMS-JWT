@@ -42,4 +42,7 @@ public class User {
     @JoinColumn(name = "manager_id")
     private User manager;
 
+    @Column(nullable = false)
+    private boolean isActive = true; // be default it is true
+
 }

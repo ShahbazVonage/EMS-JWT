@@ -27,12 +27,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //Skip public endpoints where authentication not needed
-        final String path = request.getServletPath();
-        if(path.equals("/admin/login") || path.equals("/admin/register")){
-            filterChain.doFilter(request , response);
-            return;
-        }
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         String jwt = null;
@@ -52,6 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             if(jwtUtil.validateToken(jwt)){
+                // Spring Security needs an Authentication object to represent the current logged-in user.
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails , null  , userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
