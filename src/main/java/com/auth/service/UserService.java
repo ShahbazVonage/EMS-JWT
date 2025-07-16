@@ -3,11 +3,12 @@ package com.auth.service;
 import com.auth.dto.CreateUserDto;
 import com.auth.dto.UpdateUserDto;
 import com.auth.dto.UserResponseDto;
-import com.auth.entity.Role;
+import com.auth.enums.Role;
 import com.auth.entity.User;
 import com.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.cfg.Environment;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +27,7 @@ public class UserService {
     /**
      * Method to create/add user to DB
      * @param createUserDto request data dto
-     * @return a dded employee object
+     * @return added employee object
      */
     public User createUser(CreateUserDto createUserDto){
         User user = new User();

@@ -35,7 +35,12 @@ public class SpringConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/login","/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/admin/login","/v3/api-docs/**", "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/swagger-ui.html",
+                                "/configuration/**").permitAll()
                         .requestMatchers("/admin/register").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
@@ -50,5 +55,4 @@ public class SpringConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 }

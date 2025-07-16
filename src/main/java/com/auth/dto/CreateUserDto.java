@@ -1,6 +1,6 @@
 package com.auth.dto;
 
-import com.auth.entity.Role;
+import com.auth.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

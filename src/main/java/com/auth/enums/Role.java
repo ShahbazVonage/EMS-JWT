@@ -1,4 +1,4 @@
-package com.auth.entity;
+package com.auth.enums;
 
 public enum Role {
     ADMIN,

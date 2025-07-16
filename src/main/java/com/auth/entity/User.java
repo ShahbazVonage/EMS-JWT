@@ -1,5 +1,6 @@
 package com.auth.entity;
 
+import com.auth.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -43,6 +44,6 @@ public class User {
     private User manager;
 
     @Column(nullable = false)
-    private boolean isActive = true; // be default it is true
+    private boolean isActive = true;
 
 }

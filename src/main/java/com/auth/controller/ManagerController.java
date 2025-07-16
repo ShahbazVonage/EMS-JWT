@@ -14,7 +14,8 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/manager") @RequiredArgsConstructor
+@RequiredArgsConstructor
+@RequestMapping("/manager")
 @PreAuthorize("hasRole('ROLE_MANAGER')")
 public class ManagerController {
     private final UserService userService;
