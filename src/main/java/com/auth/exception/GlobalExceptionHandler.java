@@ -55,5 +55,9 @@ public class GlobalExceptionHandler {
         error.put("status" , HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(error , HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleAllException(Exception ex){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + ex.getMessage());
+    }
 
 }

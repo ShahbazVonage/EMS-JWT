@@ -20,6 +20,7 @@ public class CreateUserDto {
     private String email;
 
     @NotBlank(message = "Password is required")
+    @NotNull(message = "Password can't not be null")
     private String password;
 
     @Min(value = 18, message = "Minimum age must be 18 or above")
